@@ -1,0 +1,31 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Samsung m40",
+            "color": "black",
+            "price": 30000,
+            "category": "mobile",
+            "brand": "Samsung",
+            "photo": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-m40-m405f.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Tshirt",
+            "color": "red",
+            "price": 300,
+            "category": "Cloth",
+            "brand": "Nike",
+            "photo": "https://thecambridgeshop.com/cdn/shop/files/KGW23-04_10.jpg?v=1697269646&width=400"
+        },
+        {
+            "id": 3,
+            "name": "Jordan Air",
+            "color": "black",
+            "price": 3000,
+            "category": "Shoes",
+            "brand": "Jordan",
+            "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUeNGLNivfck5VOmCsfAH7JET9RepYHn8Y25j62O23JA&s"
+        }
+    ]
+}
