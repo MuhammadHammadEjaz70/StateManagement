@@ -23,7 +23,6 @@ const ReactionButtons = ({ post }) => {
                 | {emoji}{post.reactions[name]} |
             </button>
         )
-
     })
     return <>{reactionButtons}</>
 }

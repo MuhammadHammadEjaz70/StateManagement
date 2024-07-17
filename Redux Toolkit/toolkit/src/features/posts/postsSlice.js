@@ -29,6 +29,28 @@ export const addNewPost = createAsyncThunk("posts/addNewPost", async (initialPos
         return err.message
     }
 })
+
+export const updatePost = createAsyncThunk("posts/updatePost", async (post) => {
+    const { id } = post;
+    try {
+        const res = await axios.put(`${POST_URL}/${id}`, post)
+        return res.data
+    } catch (err) {
+        // return err.message;
+        return post; // for testing redux with fake api
+    }
+})
+export const deletePost = createAsyncThunk("posts/deletePost", async (post) => {
+    const { id } = post;
+    try {
+        const res = await axios.delete(`${POST_URL}/${id}`)
+        if (res?.status === 200) return post;
+        return `${res?.status}: ${res.statusText}`;
+    }
+    catch (err) {
+        return err.message
+    }
+})
 const postsSlice = createSlice({
     name: "posts",
     initialState,
@@ -103,11 +125,37 @@ const postsSlice = createSlice({
                 }
                 state.posts.push(action.payload)
             })
+            .addCase(updatePost.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log("Update could not complete")
+                    console.log(action.payload)
+                    return;
+                }
+                const { id } = action.payload;
+                action.payload.date = new Date().toISOString();
+                //filter the post and add the new data with same post id
+                const posts = state.posts.filter(post => post.id !== id);
+                state.posts = [...posts, action.payload]
+
+            })
+            .addCase(deletePost.fulfilled, (state, action) => {
+                if (!action.payload?.id) {
+                    console.log("delete could not complete")
+                    console.log(action.payload)
+                    return;
+                }
+                const { id } = action.payload;
+                const posts = state.posts.filter(post => post.id !== id);
+                state.posts = posts
+
+            })
     },
 })
 
 export const selectAllPosts = (state) => state.posts.posts
 export const getPostsStatus = (state) => state.posts.status
 export const getPostsError = (state) => state.posts.error
+
+export const selectPostById = (state, postId) => state.posts.posts.find(post => post.id === postId);
 export const { postAdded, reactionAdded } = postsSlice.actions;
 export default postsSlice.reducer;

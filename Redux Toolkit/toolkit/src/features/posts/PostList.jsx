@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import PostExcerpt from './PostExcerpt'
-import { selectAllPosts, getPostsError, getPostsStatus, fetchPosts } from './postsSlice'
+import { selectAllPosts, getPostsError, getPostsStatus } from './postsSlice'
 
 const PostList = () => {
-    const dispatch = useDispatch();
     const posts = useSelector(selectAllPosts)
     const postsStatus = useSelector(getPostsStatus)
     const postsError = useSelector(getPostsError)
@@ -20,12 +18,6 @@ const PostList = () => {
     } else if (postsStatus === "failed") {
         content = <p>{postsError}</p>
     }
-
-    useEffect(() => {
-        if (postsStatus === 'idle') {
-            dispatch(fetchPosts())
-        }
-    }, [postsStatus, dispatch])
     return (
         <section>
             <h2>
