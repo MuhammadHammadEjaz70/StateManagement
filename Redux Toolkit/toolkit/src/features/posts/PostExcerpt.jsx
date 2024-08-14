@@ -4,7 +4,15 @@ import PostDate from './PostDate'
 import ReactionButtons from './ReactionButtons'
 import { Link } from 'react-router-dom'
 
-const PostExcerpt = ({ post }) => {
+import { useSelector } from 'react-redux';
+import { selectPostById } from './postsSlice'
+
+
+// This let is used for react memo
+// let PostExcerpt = ({ post }) => { 
+// const PostExcerpt = ({ post }) => {
+const PostExcerpt = ({ postId }) => {
+    const post = useSelector(state => selectPostById(state, postId))
     return (
         <article >
             <h3>{post.title}</h3>
@@ -19,4 +27,6 @@ const PostExcerpt = ({ post }) => {
     )
 }
 
+// PostExcerpt = React.memo(PostExcerpt)
+// //It will allow this componenet to not re-render if the props it recieved is not changed
 export default PostExcerpt
